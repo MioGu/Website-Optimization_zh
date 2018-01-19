@@ -418,38 +418,27 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-   // 返回不同的尺寸以将披萨元素由一个尺寸改成另一个尺寸。由changePizzaSlices(size)函数调用
-  function determineDx (elem, size) {
-    var oldWidth = elem.offsetWidth;
-    var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
-    var oldSize = oldWidth / windowWidth;
-
-    // 将值转成百分比宽度
-    function sizeSwitcher (size) {
-      switch(size) {
-        case "1":
-          return 0.25;
-        case "2":
-          return 0.3333;
-        case "3":
-          return 0.5;
-        default:
-          console.log("bug in sizeSwitcher");
-      }
-    }
-
-    var newSize = sizeSwitcher(size);
-    var dx = (newSize - oldSize) * windowWidth;
-
-    return dx;
-  }
 
   // 遍历披萨的元素并改变它们的宽度
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    let randomPizzasContainer = document.querySelectorAll('.randomPizzaContainer');
+    let newWidth;
+    switch(size) {
+      case "1":
+        newwidth = 0.25
+        break;
+      case "2":
+      newwidth = 0.3333
+      break;
+      case "3":
+      newwidth = 0.5
+      break;
+      default:
+        console.log("bug in sizeSwitcher");
+    }
+
+    for (var i = 0; i < randomPizzasContainer.length; i++) {
+      randomPizzasContainer[i].style.width = newWidth + '%';
     }
   }
 
@@ -525,7 +514,8 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 30; i++) {
+  // 此处循环的总数量 有所变化 无需循环过多数量
+  for (var i = 0; i < 25; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
