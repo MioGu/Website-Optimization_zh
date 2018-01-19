@@ -500,10 +500,10 @@ function updatePositions() {
 
   var items = document.getElementsByClassName('mover');
 
+  // 防止强制同步布局 将会触发浏览器重新布局的选项放到 循环外层， 并且 处理声明的兼容
+  var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
   for (var i = 0; i < items.length; i++) {
-
-  var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
     var phase = Math.sin((scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
